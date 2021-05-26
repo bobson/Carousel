@@ -30,22 +30,22 @@ const Carousel = (props) => {
   }, [index, looping, show, length]);
 
   function nextSlide() {
-    if (canISlide) {
-      if (looping || index < length - show) {
-        setIndex((prevState) => prevState + 1);
-      }
+    // if (canISlide) {
+    if (looping || index < length - show) {
+      setIndex((prevState) => prevState + 1);
     }
-    setCanISlide(false);
+    // }
+    // setCanISlide(false);
     // sets the index to next if you are not on the last slide
   }
 
   function prevSlide() {
-    if (canISlide) {
-      if (looping || index > 0) {
-        setIndex((prevState) => prevState - 1);
-      }
+    // if (canISlide) {
+    if (looping || index > 0) {
+      setIndex((prevState) => prevState - 1);
     }
-    setCanISlide(false);
+    // }
+    // setCanISlide(false);
     // sets the index to be the previous if you are further than first slide
   }
 

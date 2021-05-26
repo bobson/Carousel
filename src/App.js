@@ -13,7 +13,7 @@ const carouselImages = [
 
 const App = () => {
   return (
-    <Carousel show={3}>
+    <Carousel>
       {carouselImages.map((image, i) => (
         <img src={image} key={i} alt="slide" />
       ))}
