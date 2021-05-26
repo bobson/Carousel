@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.carousel {
+  max-width: 600px;
+  width: 100%;
+  height: 40vh;
+  margin: 3rem auto;
+}
+
+.carousel-container {
+  width: 100%;
+  position: relative;
+}
+
+.slides-wrapper {
+  overflow-x: scroll;
+  width: 100%;
+  display: flex;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.slides-content {
+  display: flex;
+  transition: all 0.3s linear;
+  align-items: center;
+  text-align: center;
+  /* scroll-snap-align: start; */
+}
+
+.slides-content.show-2 {
+  width: 50%;
+}
+
+.slides-content.show-3 > * {
+  width: calc(100% / 3);
+}
+
+.slides-content.show-4 > * {
+  width: calc(100% / 4);
+}
+
+.slides-content > * {
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+
+/* hide the scrollbar */
+.slides-wrapper::-webkit-scrollbar,
+.slides-content::-webkit-scrollbar {
+  display: none;
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.next {
+  right: 0.2rem;
+}
+
+.prev {
+  left: 0.2rem;
+}
+
+.prev:active,
+.next:active {
+  color: #888;
+}
+
+/* hide the controls on touch screens */
+@media (pointer: coarse) {
+  .prev,
+  .next {
+    display: none;
+  }
+}
+
+.navigation {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slide-selector {
+  cursor: pointer;
+  margin: 0 0.5rem;
+  border: none;
+  height: 0.3rem;
+  border-radius: 20px;
+}
+
+.active {
+  background: #888;
+}
