@@ -129,7 +129,6 @@ const Carousel = (props) => {
                 index * (show != 2 ? 100 / show : 100)
               }%)`,
               transition: !transition ? "none" : undefined,
-              scrollSnapAlign: looping ? "none" : "start",
             }}
             onTransitionEnd={() => handleTransitionEnd()}
             ref={slideRef}

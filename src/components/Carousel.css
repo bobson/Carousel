@@ -10,7 +10,7 @@ body {
 .carousel {
   max-width: 600px;
   width: 100%;
-  height: 40vh;
+  height: 50vh;
   margin: 3rem auto;
 }
 
@@ -26,6 +26,7 @@ body {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  touch-action: cross-slide-x;
 }
 
 .slides-content {
@@ -33,7 +34,8 @@ body {
   transition: all 0.3s linear;
   align-items: center;
   text-align: center;
-  scroll-snap-align: end;
+
+  scroll-snap-align: start;
 }
 
 .slides-content.show-2 {

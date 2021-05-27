@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 
 import Carousel from "./components/Carousel";
+import SliderNew from "./components/SliderNew";
 
 const carouselImages = [
   "https://picsum.photos/400",
@@ -13,11 +14,16 @@ const carouselImages = [
 
 const App = () => {
   return (
-    <Carousel>
+    // <Carousel>
+    //   {carouselImages.map((image, i) => (
+    //     <img src={image} key={i} alt="slide" />
+    //   ))}
+    // </Carousel>
+    <SliderNew>
       {carouselImages.map((image, i) => (
         <img src={image} key={i} alt="slide" />
       ))}
-    </Carousel>
+    </SliderNew>
   );
 };
 
