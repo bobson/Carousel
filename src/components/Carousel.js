@@ -14,7 +14,9 @@ const Carousel = (props) => {
   const [width, setWidth] = useState(null);
   const [canISlide, setCanISlide] = useState(true);
 
+  // console.log(children.length);
   const slideRef = useRef();
+  // console.log(looping);
 
   useEffect(() => {
     setLength(children.length);
