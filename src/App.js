@@ -1,8 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
 
-import Carousel from "./components/Carousel";
-import Slider from "./components/Slider";
+import Slider from "./components/Slider/Slider";
+
+import "./App.css";
 
 const carouselImages = [
   "https://picsum.photos/400",
@@ -15,12 +16,8 @@ const carouselImages = [
 const App = () => {
   return (
     <>
-      <Carousel infinite show={3}>
-        {carouselImages.map((image, i) => (
-          <img src={image} key={i} alt="slide" />
-        ))}
-      </Carousel>
-      <Slider show={3} infinite>
+      <h1>Carousel component made by Slobodan</h1>
+      <Slider infinite>
         {carouselImages.map((image, i) => (
           <img src={image} key={i} alt="slide" />
         ))}
