@@ -13,6 +13,7 @@
   height: 100%;
   display: flex;
   cursor: grab;
+  transform: translateX(0);
 }
 
 .slides {
@@ -35,14 +36,15 @@
 .prev,
 .next {
   position: absolute;
-  top: 45%;
+  top: 50%;
   transform: translateY(-50%);
-  color: white;
+  color: whitesmoke;
   font-size: 4rem;
   background: transparent;
   border: none;
   cursor: pointer;
   z-index: 3;
+  opacity: 0.9;
 }
 
 .next {
@@ -76,6 +78,7 @@
 
 .slide-selector {
   cursor: pointer;
+  color: white;
   margin: 0 0.5rem;
   border: none;
   height: 0.5rem;

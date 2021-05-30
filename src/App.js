@@ -11,13 +11,14 @@ const carouselImages = [
   "https://picsum.photos/402",
   "https://picsum.photos/403",
   "https://picsum.photos/404",
+  "https://picsum.photos/405",
 ];
 
 const App = () => {
   return (
     <>
       <h1>Carousel component made by Slobodan</h1>
-      <Slider>
+      <Slider infinite>
         {carouselImages.map((image, i) => (
           <img src={image} key={i} alt="slide" />
         ))}

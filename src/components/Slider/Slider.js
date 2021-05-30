@@ -43,7 +43,7 @@ const Slider = (props) => {
   );
 
   function transitionOn() {
-    sliderRef.current.style.transition = "transform 0.3s ease-out";
+    sliderRef.current.style.transition = "transform 0.3s ease-in-out";
   }
 
   function transitionOff() {
@@ -97,7 +97,7 @@ const Slider = (props) => {
   }
 
   function touchStart(e) {
-    transitionOn();
+    transitionOff();
     startPos.current = getPositionX(e);
     isDraging.current = true;
     animationRef.current = requestAnimationFrame(animation);
@@ -106,7 +106,7 @@ const Slider = (props) => {
 
   function touchMove(e) {
     if (isDraging.current) {
-      transitionOff();
+      // transitionOff();
       const currentPos = getPositionX(e);
       currentTranslate.current =
         prevTranslate.current + currentPos - startPos.current;
