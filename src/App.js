@@ -17,7 +17,7 @@ const App = () => {
   return (
     <>
       <h1>Carousel component made by Slobodan</h1>
-      <Slider infinite>
+      <Slider>
         {carouselImages.map((image, i) => (
           <img src={image} key={i} alt="slide" />
         ))}

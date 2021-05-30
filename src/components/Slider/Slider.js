@@ -21,7 +21,8 @@ const Slider = (props) => {
   const [currentIndex, setCurrnetIndex] = useState(infinite ? show : 0);
 
   const dimensions = useRef({ width: 0, height: 0 });
-  const isDraging = useRef(false);
+  const isDraging =
+    useRef(false); /* Usefull when onMouseMove trigers only when draging */
   const startPos = useRef(0);
   const endPosition = useRef(0);
   const currentTranslate = useRef(0);
@@ -105,6 +106,7 @@ const Slider = (props) => {
 
   function touchMove(e) {
     if (isDraging.current) {
+      transitionOff();
       const currentPos = getPositionX(e);
       currentTranslate.current =
         prevTranslate.current + currentPos - startPos.current;
@@ -113,9 +115,8 @@ const Slider = (props) => {
 
   function touchEnd(e) {
     if (isDraging.current) {
-      endPosition.current = getEndPostionX(e);
-      transitionOn();
       cancelAnimationFrame(animationRef.current);
+      transitionOn();
       isDraging.current = false;
 
       const movedBy = currentTranslate.current - prevTranslate.current;
@@ -131,10 +132,6 @@ const Slider = (props) => {
 
   function getPositionX(e) {
     return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
-  }
-
-  function getEndPostionX(e) {
-    return e.type.includes("mouse") ? e.clientX : e.changedTouches[0].clientX;
   }
 
   function animation() {
