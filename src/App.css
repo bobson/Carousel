@@ -10,3 +10,54 @@ body {
   text-align: center;
   color: whitesmoke;
 }
+
+.slider-props {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+.infinite-prop button {
+  padding: 1rem;
+  background: turquoise;
+  color: crimson;
+  font-weight: bold;
+  border: none;
+  border-radius: 1rem;
+  font-size: 2rem;
+}
+
+.show-prop {
+  font-size: 2rem;
+}
+
+.show-prop h3 {
+  margin: 0;
+}
+
+.show-prop select {
+  width: 4rem;
+  height: 4rem;
+  font-size: 2rem;
+  background: turquoise;
+  color: crimson;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .infinite-prop button {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .show-prop {
+    font-size: 1rem;
+  }
+
+  .show-prop select {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+}

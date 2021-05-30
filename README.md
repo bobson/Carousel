@@ -1,19 +1,59 @@
-This Carousel project is made with react core libreris, and Parcel for bundler. Parcel is zero-configuration bundler out of the box.
+# react touch drag carousel component
 
-Run "npm i" or "yarn" to download the dependencies.
-Run "npm run dev" or "yarn dev" to start the development server.
-Run "npm run build" or "yarn build" for production build.
+- Touch finger-following animated swipes on mobile
+- Works for any HTML content
+- Responsive to viewport resizing
+- Supports mouse drag by default
+- Supports infinite option
+- Supports multiple slides on the screen
+- Supports scrolling to a selected slide
 
-Carousel component takes 2 optional props: show and infinite.
-If there is no show prop the default is 1 slide on the screen.You can specify max 4 slides on the screen:
-<Carousel show={4}>
-<img />
-.
-.
-.
-<Carousel />
-If no infinite prop the default behavior is no looping, no repeating.
-If there is infinite prop there is infinite slides.
-<Carousel infinite show={2}>
-<img />
-<Carousel />
+## Instal dependendencies
+
+```bash
+npm i
+or
+yarn
+```
+
+## Run development
+
+```bash
+npm run dev
+or
+yarn dev
+```
+
+## Usage
+
+```jsx
+import React from "react";
+import { render } from "react-dom";
+
+import Slider from "./components/Slider/Slider";
+
+import "./App.css";
+
+const carouselImages = [
+  "https://picsum.photos/400",
+  "https://picsum.photos/401",
+  "https://picsum.photos/402",
+  "https://picsum.photos/403",
+  "https://picsum.photos/404",
+];
+
+// here we are downloading some images
+// but the Slider children can be an array of any HTML elements
+
+const App = () => {
+  return (
+    <Slider infinite={infinite} show={2}>
+      {carouselImages.map((image, i) => (
+        <img src={image} key={i} alt="slide" />
+      ))}
+    </Slider>
+  );
+};
+
+render(<App />, document.getElementById("App"));
+```
