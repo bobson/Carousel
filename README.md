@@ -16,7 +16,7 @@ or
 yarn
 ```
 
-## Run development
+## Run development server
 
 ```bash
 npm run dev
@@ -47,7 +47,7 @@ const carouselImages = [
 
 const App = () => {
   return (
-    <Slider infinite={infinite} show={2}>
+    <Slider infinite show={2}>
       {carouselImages.map((image, i) => (
         <img src={image} key={i} alt="slide" />
       ))}
@@ -57,3 +57,10 @@ const App = () => {
 
 render(<App />, document.getElementById("App"));
 ```
+
+## Available Props
+
+| Prop     | Type    | Default | Description                                |
+| -------- | ------- | ------- | ------------------------------------------ |
+| infinite | boolian | false   | If true slider in never ending, is looping |
+| show     | number  | 1       | Number of slides to be shown on the screen |
