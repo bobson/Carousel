@@ -22,7 +22,7 @@ const Slider = (props) => {
   const canISlide =
     useRef(true); /* Ensures that extraPrev and extraNext are rendered */
 
-  // Set with on first render depending on show
+  // Set width on first render depending on show
   // Update position by index
   useLayoutEffect(() => {
     sliderRef.current.style.width = `calc(100% / ${show})`;

@@ -8,7 +8,7 @@
 - Supports multiple slides on the screen
 - Using Parcel for bundling - zero configuration out of the box
 
-## Instal dependendencies
+## Instal dependencies
 
 ```bash
 git clone https://github.com/bobson/Carousel.git
