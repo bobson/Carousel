@@ -26,6 +26,15 @@ npm run dev
 yarn dev
 ```
 
+## Go to demo page
+
+```bash
+https://carousel-finger-folow.netlify.app/
+
+On the demo page you can set the props dinamcly but on development
+you can add infinite and show props on Slider component
+```
+
 ## Usage
 
 ```jsx

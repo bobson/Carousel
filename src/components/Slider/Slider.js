@@ -131,6 +131,9 @@ const Slider = (props) => {
       endTime.current = Date.now();
 
       const distance = currentTranslate.current - prevTranslate.current;
+
+      /* Go to the next or prev slide if the dragMove speed 
+      is less then 0.3s */
       const speed = endTime.current - startTime.current;
 
       if (distance < 0) direction.current = -1;
@@ -138,7 +141,7 @@ const Slider = (props) => {
 
       if (
         distance < -dimensions.current.width / 2 ||
-        (direction.current == -1 && speed < 300)
+        (direction.current == -1 && speed < 300) //
       )
         nextSlide();
 
@@ -166,7 +169,8 @@ const Slider = (props) => {
     sliderRef.current.style.transform = `translateX(${currentTranslate.current}px)`;
   }
 
-  /* Cheks the index and disables animation on first and last slide and update the index after */
+  /* Cheks the index and disables animation on first and last slide and 
+  update the index not to go outside the length */
   function handleTransitionEnd() {
     if (infinite) {
       if (currentIndex == 0) {
@@ -181,7 +185,7 @@ const Slider = (props) => {
   }
   /* Render navigation buttons depending on lenght and show */
   function rnederNavigation() {
-    //Update the count depending on infinite
+    //Update the buttons number depending on infinite and show
     const index = infinite ? show : 0;
     const slides = infinite ? 0 : show;
     const output = [];
@@ -240,16 +244,19 @@ const Slider = (props) => {
 
         {infinite && renderExtraNext().map((element) => element)}
       </div>
+
       {(infinite || currentIndex > 0) && (
         <button className="prev" onClick={prevSlide}>
           <i className="fas fa-caret-left" />
         </button>
       )}
+
       {(infinite || currentIndex < length - 1) && (
         <button className="next" onClick={nextSlide}>
           <i className="fas fa-caret-right" />
         </button>
       )}
+
       <div className="navigation">{rnederNavigation()}</div>
     </div>
   );

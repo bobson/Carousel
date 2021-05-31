@@ -13,8 +13,6 @@
   display: flex;
   flex-direction: row;
   cursor: grab;
-  /* justify-content: flex-start; */
-  /* overflow: hidden; */
 }
 
 .slider-container > * {
@@ -102,8 +100,4 @@
 
 .active {
   background: crimson;
-}
-
-.display-none {
-  display: none;
 }

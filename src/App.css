@@ -44,20 +44,3 @@ body {
   color: crimson;
   font-weight: bold;
 }
-
-@media (max-width: 600px) {
-  .infinite-prop button {
-    font-size: 1rem;
-    padding: 0.5rem;
-  }
-
-  .show-prop {
-    font-size: 1rem;
-  }
-
-  .show-prop select {
-    width: 2rem;
-    height: 2rem;
-    font-size: 1rem;
-  }
-}

@@ -48,14 +48,6 @@ const App = () => {
           </select>
         </div>
       </div>
-      {/* <SliderNew>
-        {carouselImages.map((image, i) => (
-          <>
-            <h1 style={{ color: "magetnta" }}>Slide {i}</h1>
-            <img src={image} alt="slide" />
-          </>
-        ))}
-      </SliderNew> */}
     </>
   );
 };
