@@ -3,9 +3,10 @@
 - Touch finger-following animated swipes on mobile
 - Works for any HTML content
 - Responsive to viewport resizing
-- Mouse drag and scrolling to a selected slide
 - Supports infinite option
 - Supports multiple slides on the screen
+- Supports scrolling to a selected slide
+- Supports mouse drag on desktop
 - Using Parcel for bundling - zero configuration out of the box
 
 ## Instal dependencies
