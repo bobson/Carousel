@@ -1,10 +1,17 @@
 {
+  "name": "react-finger-following-slider",
+  "version": "1",
+  "description": "Touch and drag slider carousel component for React",
+  "author": "Slobodan",
+  "license": "MIT",
+  "repository": "bobson/Carousel",
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.5"
+    "parcel-bundler": "^1.12.5",
+    "prettier": "^2.3.0"
   },
   "scripts": {
     "dev": "parcel src/index.html",

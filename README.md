@@ -63,6 +63,12 @@ const App = () => {
         <img src={image} key={i} alt="slide" />
       ))}
     </Slider>
+    // or
+    <Slider infinite show={2}>
+      {carouselImages.map((image, i) => (
+        <img src={image} key={i} alt="slide" />
+      ))}
+    </Slider>
   );
 };
 
