@@ -15,22 +15,23 @@ function getElementDimensions(ref) {
 }
 
 const Slider = (props) => {
-  const { children, infinite, show } = props;
+  const { children, infinite } = props;
+  const show = props.show || 1; //Default show is 1 slide
 
   const [length, setLength] = useState(children.length);
-  const [slidesToShow, setSlidesToShow] = useState(show);
-  const [isLooping, setIsLooping] = useState(infinite && length > show);
-  const [currentIndex, setCurrnetIndex] = useState(slidesToShow);
+
+  const [currentIndex, setCurrnetIndex] = useState(infinite ? show : 0);
 
   const dimensions = useRef({ width: 0, height: 0 });
-  const isDraging =
-    useRef(false); /* Usefull when onMouseMove trigers only when draging */
+  const isDraging = useRef(false); /* onMouseMove trigers only when draging */
   const startPos = useRef(0);
+  const startTime = useRef(0);
+  const endTime = useRef(0);
+  const direction = useRef(0);
   const currentTranslate = useRef(0);
   const prevTranslate = useRef(0);
   const animationRef = useRef(null);
   const sliderRef = useRef();
-  const navRef = useRef();
   const canISlide =
     useRef(true); /* Ensures that extraPrev and extraNext are rendered */
 
@@ -44,7 +45,7 @@ const Slider = (props) => {
   );
 
   function transitionOn() {
-    sliderRef.current.style.transition = "transform 0.3s ease-in-out";
+    sliderRef.current.style.transition = "transform 0.3s ease-out";
   }
 
   function transitionOff() {
@@ -55,18 +56,18 @@ const Slider = (props) => {
   // Set postion by startIndex
   // No animation on startIndex
   useLayoutEffect(() => {
-    sliderRef.current.style.width = `calc(100% / ${slidesToShow})`;
+    sliderRef.current.style.width = `calc(100% / ${show})`;
+
     dimensions.current = getElementDimensions(sliderRef);
 
     setPositionByIndex(getElementDimensions(sliderRef).width);
   }, [setPositionByIndex]);
 
-  // Update the props
+  // Update the index depending on props
   useEffect(() => {
-    setSlidesToShow(show);
-    setIsLooping(infinite);
-    setCurrnetIndex(0);
-  }, [show, infinite]);
+    setLength(children.length);
+    setCurrnetIndex(infinite ? show : 0);
+  }, [children, infinite, show]);
 
   // Add resize event listener
   useEffect(() => {
@@ -84,7 +85,7 @@ const Slider = (props) => {
 
   function nextSlide() {
     if (canISlide.current) {
-      if (isLooping || currentIndex < length - slidesToShow) {
+      if (infinite || currentIndex < length - show) {
         transitionOn();
         setCurrnetIndex((prevIndex) => (prevIndex += 1));
         setPositionByIndex();
@@ -95,7 +96,7 @@ const Slider = (props) => {
 
   function prevSlide() {
     if (canISlide.current) {
-      if (currentIndex > 0) {
+      if (infinite || currentIndex > 0) {
         transitionOn();
         setCurrnetIndex((prevIndex) => (prevIndex -= 1));
         setPositionByIndex();
@@ -105,7 +106,8 @@ const Slider = (props) => {
   }
 
   function touchStart(e) {
-    transitionOn();
+    transitionOff();
+    startTime.current = Date.now();
     startPos.current = getPositionX(e);
     isDraging.current = true;
     animationRef.current = requestAnimationFrame(animation);
@@ -114,24 +116,37 @@ const Slider = (props) => {
 
   function touchMove(e) {
     if (isDraging.current) {
-      transitionOff();
       const currentPos = getPositionX(e);
       currentTranslate.current =
         prevTranslate.current + currentPos - startPos.current;
     }
   }
 
-  function touchEnd(e) {
+  function touchEnd() {
     if (isDraging.current) {
       cancelAnimationFrame(animationRef.current);
       transitionOn();
       isDraging.current = false;
 
-      const movedBy = currentTranslate.current - prevTranslate.current;
+      endTime.current = Date.now();
 
-      if (movedBy < -100) nextSlide();
+      const distance = currentTranslate.current - prevTranslate.current;
+      const speed = endTime.current - startTime.current;
 
-      if (movedBy > 100) prevSlide();
+      if (distance < 0) direction.current = -1;
+      if (distance > 0) direction.current = 1;
+
+      if (
+        distance < -dimensions.current.width / 2 ||
+        (direction.current == -1 && speed < 300)
+      )
+        nextSlide();
+
+      if (
+        distance > dimensions.current.width / 2 ||
+        (direction.current == 1 && speed < 300)
+      )
+        prevSlide();
 
       setPositionByIndex();
       sliderRef.current.style.cursor = "grab";
@@ -148,25 +163,29 @@ const Slider = (props) => {
   }
 
   function setSliderPosition() {
-    sliderRef.current.style.transform = `translate(${currentTranslate.current}px)`;
+    sliderRef.current.style.transform = `translateX(${currentTranslate.current}px)`;
   }
 
+  /* Cheks the index and disables animation on first and last slide and update the index after */
   function handleTransitionEnd() {
-    if (isLooping) {
+    if (infinite) {
       if (currentIndex == 0) {
         transitionOff();
         setCurrnetIndex(length);
-      } else if (currentIndex == length + slidesToShow) {
+      } else if (currentIndex == length + show) {
         transitionOff();
-        setCurrnetIndex(slidesToShow);
+        setCurrnetIndex(show);
       }
     }
     canISlide.current = true;
   }
-  /* Render navigation buttons depending on lenght and slidesToShow*/
+  /* Render navigation buttons depending on lenght and show */
   function rnederNavigation() {
+    //Update the count depending on infinite
+    const index = infinite ? show : 0;
+    const slides = infinite ? 0 : show;
     const output = [];
-    for (let i = 0; i <= Math.ceil(length - slidesToShow); i++) {
+    for (let i = index; i <= length - slides + (infinite ? show - 1 : 0); i++) {
       output.push(
         <button
           onClick={() => {
@@ -186,7 +205,7 @@ const Slider = (props) => {
 
   function renderExtraPrev() {
     const output = [];
-    for (let i = 0; i <= slidesToShow; i++) {
+    for (let i = 0; i < show; i++) {
       output.push(children[length - 1 - i]);
     }
     return output.reverse();
@@ -194,7 +213,7 @@ const Slider = (props) => {
 
   function renderExtraNext() {
     const output = [];
-    for (let i = 0; i < slidesToShow; i++) {
+    for (let i = 0; i < show; i++) {
       output.push(children[i]);
     }
     return output;
@@ -215,42 +234,23 @@ const Slider = (props) => {
         onTransitionEnd={handleTransitionEnd}
         ref={sliderRef}
       >
-        {isLooping &&
-          renderExtraPrev().map((element, i) => (
-            <div className="slides" key={i}>
-              {element}
-            </div>
-          ))}
+        {infinite && renderExtraPrev().map((element) => element)}
 
-        {children.map((child, index) => (
-          <div className="slides" key={index}>
-            {child}
-          </div>
-        ))}
+        {children.map((child) => child)}
 
-        {isLooping &&
-          renderExtraNext().map((element, i) => (
-            <div className="slides" key={i}>
-              {element}
-            </div>
-          ))}
+        {infinite && renderExtraNext().map((element) => element)}
       </div>
-      {(isLooping || currentIndex > 0) && (
+      {(infinite || currentIndex > 0) && (
         <button className="prev" onClick={prevSlide}>
           <i className="fas fa-caret-left" />
         </button>
       )}
-      {(isLooping || currentIndex < length - slidesToShow) && (
+      {(infinite || currentIndex < length - 1) && (
         <button className="next" onClick={nextSlide}>
           <i className="fas fa-caret-right" />
         </button>
       )}
-
-      {!isLooping && (
-        <div ref={navRef} className="navigation">
-          {rnederNavigation()}
-        </div>
-      )}
+      <div className="navigation">{rnederNavigation()}</div>
     </div>
   );
 };

@@ -3,16 +3,18 @@
 - Touch finger-following animated swipes on mobile
 - Works for any HTML content
 - Responsive to viewport resizing
-- Supports mouse drag by default
+- Mouse drag and scrolling to a selected slide
 - Supports infinite option
 - Supports multiple slides on the screen
-- Supports scrolling to a selected slide
+- Using Parcel for bundling - zero configuration out of the box
 
 ## Instal dependendencies
 
 ```bash
+git clone https://github.com/bobson/Carousel.git
+ ... go to cloned file and run...
 npm i
-or
+  or
 yarn
 ```
 
@@ -20,7 +22,7 @@ yarn
 
 ```bash
 npm run dev
-or
+  or
 yarn dev
 ```
 
@@ -47,7 +49,7 @@ const carouselImages = [
 
 const App = () => {
   return (
-    <Slider infinite show={2}>
+    <Slider>
       {carouselImages.map((image, i) => (
         <img src={image} key={i} alt="slide" />
       ))}
@@ -60,7 +62,7 @@ render(<App />, document.getElementById("App"));
 
 ## Available Props
 
-| Prop     | Type    | Default | Description                                |
-| -------- | ------- | ------- | ------------------------------------------ |
-| infinite | boolian | false   | If true slider in never ending, is looping |
-| show     | number  | 1       | Number of slides to be shown on the screen |
+| Prop     | Type    | Default | Description                                                  |
+| -------- | ------- | ------- | ------------------------------------------------------------ |
+| infinite | boolean | false   | Going after the last item will move back to the first slide. |
+| show     | number  | 1       | Number of slides to be shown on the screen                   |

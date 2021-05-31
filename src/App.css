@@ -19,17 +19,17 @@ body {
 }
 
 .infinite-prop button {
-  padding: 1rem;
+  padding: 0.5rem;
   background: turquoise;
   color: crimson;
   font-weight: bold;
   border: none;
   border-radius: 1rem;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 .show-prop {
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 .show-prop h3 {
@@ -37,9 +37,9 @@ body {
 }
 
 .show-prop select {
-  width: 4rem;
-  height: 4rem;
-  font-size: 2rem;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
   background: turquoise;
   color: crimson;
   font-weight: bold;

@@ -3,15 +3,15 @@ import { render } from "react-dom";
 
 import Slider from "./components/Slider/Slider";
 
+import img1 from "./images/0.jpg";
+import img2 from "./images/1.jpg";
+import img3 from "./images/2.jpg";
+import img4 from "./images/3.jpg";
+import img5 from "./images/4.jpg";
+
 import "./App.css";
 
-const carouselImages = [
-  "https://picsum.photos/400",
-  "https://picsum.photos/401",
-  "https://picsum.photos/402",
-  "https://picsum.photos/403",
-  "https://picsum.photos/404",
-];
+const carouselImages = [img1, img2, img3, img4, img5];
 
 const App = () => {
   const [infinite, setInfinite] = useState(false);
@@ -22,7 +22,10 @@ const App = () => {
       <h1>Carousel component made by Slobodan</h1>
       <Slider infinite={infinite} show={show}>
         {carouselImages.map((image, i) => (
-          <img src={image} key={i} alt="slide" />
+          <div key={image}>
+            <h1 style={{ color: "magetnta" }}>Slide {i + 1}</h1>
+            <img src={image} alt="slide" />
+          </div>
         ))}
       </Slider>
       <div className="slider-props">
@@ -45,6 +48,14 @@ const App = () => {
           </select>
         </div>
       </div>
+      {/* <SliderNew>
+        {carouselImages.map((image, i) => (
+          <>
+            <h1 style={{ color: "magetnta" }}>Slide {i}</h1>
+            <img src={image} alt="slide" />
+          </>
+        ))}
+      </SliderNew> */}
     </>
   );
 };
