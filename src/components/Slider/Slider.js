@@ -135,7 +135,7 @@ const Slider = (props) => {
       isDragging.current = false;
 
       endTime.current = e.timeStamp;
-      // console.log(e);
+      console.log(e.timeStamp);
 
       const distance = currentPosition.current - prevPosition.current;
       // console.log(distance);
@@ -144,7 +144,6 @@ const Slider = (props) => {
       is less then 0.3s */
       const speed = endTime.current - startTime.current;
 
-      console.log(speed);
       if (
         distance <= -width.current / 2 ||
         (distance < 0 && speed < 50) //
