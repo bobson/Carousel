@@ -9,6 +9,12 @@ body {
   width: 100%;
   text-align: center;
   color: whitesmoke;
+  scrollbar-width: none;
+  /* overflow-y: scroll; */
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .slider-props {
@@ -27,6 +33,12 @@ body {
   border: none;
   border-radius: 1rem;
   font-size: 1rem;
+  cursor: pointer;
+}
+
+.infinite-prop button:disabled {
+  cursor: initial;
+  color: gray;
 }
 
 .show-prop {
@@ -45,3 +57,9 @@ body {
   color: crimson;
   font-weight: bold;
 }
+
+/* @media (min-width: 600px) {
+  body {
+    overflow-y: scroll;
+  }
+} */

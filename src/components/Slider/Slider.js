@@ -1,10 +1,21 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useLayoutEffect,
+  useContext,
+} from "react";
+import { SliderContext } from "./SliderContext";
 
 import "./Slider.css";
 
 const Slider = (props) => {
-  const { children, infinite } = props;
-  const show = props.show || 1; //Default show is 1 slide
+  const { children } = props;
+  const sliderCtx = useContext(SliderContext);
+
+  const autoPlay = sliderCtx.autoPlay || false;
+  const infinite = sliderCtx.infinite || autoPlay;
+  const show = sliderCtx.show || 1; //Default show is 1 slide
 
   const [length, setLength] = useState(children.length);
   const [currentIndex, setCurrnetIndex] = useState(infinite ? show : 0);
@@ -14,7 +25,6 @@ const Slider = (props) => {
   const startPos = useRef(0);
   const startTime = useRef(0);
   const endTime = useRef(0);
-  const direction = useRef(0);
   const currentPosition = useRef(0);
   const prevPosition = useRef(0);
   const animationRef = useRef(null);
@@ -35,7 +45,7 @@ const Slider = (props) => {
     setLength(children.length);
     setCurrnetIndex(infinite ? show : 0);
   }, [children, infinite, show]);
-
+  console.log(infinite);
   // Add resize event listener
   useEffect(() => {
     function handleResize() {
@@ -46,6 +56,13 @@ const Slider = (props) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [updatePosByIndex]);
+
+  useEffect(() => {
+    if (autoPlay) {
+      const play = setInterval(() => nextSlide(), 2000);
+      return () => clearInterval(play);
+    }
+  }, [nextSlide, autoPlay]);
 
   // Functions
   function transitionOn() {
@@ -79,8 +96,6 @@ const Slider = (props) => {
   function touchStart(e) {
     transitionOff();
 
-    startTime.current = Date.now();
-
     startPos.current = getPositionX(e);
 
     isDragging.current = true;
@@ -91,22 +106,32 @@ const Slider = (props) => {
 
     sliderRef.current.style.cursor = "grabbing";
   }
-
   function touchMove(e) {
     if (isDragging.current) {
       const moveEndPos = getPositionX(e);
-      currentPosition.current =
-        prevPosition.current + moveEndPos - startPos.current;
+      const diff = moveEndPos - startPos.current;
+      startTime.current = e.timeStamp;
+
+      if (diff < -20 || diff > 20)
+        document.body.classList.add("vertical-scroll");
+
+      if (!infinite) {
+        if (currentIndex == 0 && diff > 0) return;
+        if (currentIndex == length - show && diff < 0) return;
+      }
+
+      currentPosition.current = prevPosition.current + diff;
     }
   }
 
-  function touchEnd() {
+  function touchEnd(e) {
     if (isDragging.current) {
+      document.body.classList.remove("vertical-scroll");
       cancelAnimationFrame(animationRef.current);
       transitionOn();
       isDragging.current = false;
 
-      endTime.current = Date.now();
+      endTime.current = e.timeStamp;
 
       const distance = currentPosition.current - prevPosition.current;
 
@@ -114,19 +139,13 @@ const Slider = (props) => {
       is less then 0.3s */
       const speed = endTime.current - startTime.current;
 
-      if (distance < 0) direction.current = -1;
-      if (distance > 0) direction.current = 1;
-
       if (
         distance <= -width.current / 2 ||
-        (direction.current == -1 && speed < 300) //
+        (distance < 0 && speed < 300) //
       )
         nextSlide();
 
-      if (
-        distance > width.current / 2 ||
-        (direction.current == 1 && speed < 300)
-      )
+      if (distance > width.current / 2 || (distance > 0 && speed < 300))
         prevSlide();
 
       updatePosByIndex();

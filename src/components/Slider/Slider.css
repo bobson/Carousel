@@ -32,6 +32,11 @@
   justify-content: center;
   user-select: none;
   text-align: center;
+  scrollbar-width: none;
+}
+
+.slider-content::-webkit-scrollbar {
+  display: none;
 }
 
 .slider-content img {
@@ -56,6 +61,7 @@
 .next {
   right: 1rem;
 }
+
 .next:hover {
   right: 0.7rem;
 }
@@ -115,4 +121,8 @@
 
 .active {
   background: crimson;
+}
+
+.vertical-scroll {
+  overflow-y: hidden;
 }

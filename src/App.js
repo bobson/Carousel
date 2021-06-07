@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { render } from "react-dom";
 
 import Slider from "./components/Slider/Slider";
@@ -11,32 +11,44 @@ import img5 from "./images/4.jpg";
 
 import "./App.css";
 
+import PropsContextProvider from "./components/Slider/SliderContext";
+import { SliderContext } from "./components/Slider/SliderContext";
+
 const carouselImages = [img1, img2, img3, img4, img5];
+// const carouselImages = [
+//   <span>Slide 1</span>,
+//   <span>Slide 2</span>,
+//   <span>Slide 3</span>,
+//   <span>Slide 4</span>,
+// ];
 
 const App = () => {
-  const [infinite, setInfinite] = useState(false);
-  const [show, setShow] = useState(1);
+  const sliderCtx = useContext(SliderContext);
+  const { infinite, autoPlay, infiniteHandler, showHandler, autoPlayHandler } =
+    sliderCtx;
 
   return (
     <>
       <h1>Carousel component made by Slobodan</h1>
-      <Slider infinite={infinite} show={show}>
+      <Slider>
         {carouselImages.map((image, i) => (
-          <div key={image}>
-            <h1 style={{ color: "magetnta" }}>Slide {i + 1}</h1>
-            <img src={image} alt="slide" />
-          </div>
+          <img src={image} key={i} alt="slide" />
         ))}
       </Slider>
       <div className="slider-props">
         <div className="infinite-prop">
-          <button onClick={() => setInfinite((prevState) => !prevState)}>
-            {infinite ? "Click for NOT Infinite" : "Click for Infinite"}
+          <button onClick={infiniteHandler} disabled={autoPlay}>
+            {infinite ? "Not Infinite Loop" : "Infinite Loop"}
+          </button>
+        </div>
+        <div className="infinite-prop">
+          <button onClick={autoPlayHandler}>
+            {autoPlay ? "Stop Auto Play" : "Auto Play"}
           </button>
         </div>
         <div className="show-prop">
           <h3>Slides to show</h3>
-          <select onChange={(e) => setShow(parseInt(e.target.value))}>
+          <select onChange={(e) => showHandler(parseInt(e.target.value))}>
             {carouselImages.map(
               (option, i) =>
                 i < carouselImages.length - 1 && (
@@ -52,4 +64,9 @@ const App = () => {
   );
 };
 
-render(<App />, document.getElementById("App"));
+render(
+  <PropsContextProvider>
+    <App />
+  </PropsContextProvider>,
+  document.getElementById("App")
+);
