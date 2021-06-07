@@ -95,7 +95,7 @@ const Slider = (props) => {
   }
 
   function touchStart(e) {
-    transitionOff();
+    transitionOn();
 
     startPos.current = getPositionX(e);
 
@@ -132,7 +132,7 @@ const Slider = (props) => {
     if (isDragging.current) {
       document.body.classList.remove("vertical-scroll");
       cancelAnimationFrame(animationRef.current);
-      transitionOn();
+      // transitionOn();
       isDragging.current = false;
 
       endTime.current = e.timeStamp;
