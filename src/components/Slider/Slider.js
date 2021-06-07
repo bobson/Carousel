@@ -111,6 +111,7 @@ const Slider = (props) => {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
       startTime.current = e.timeStamp;
+      console.log(e);
 
       if (diff < -20 || diff > 20)
         document.body.classList.add("vertical-scroll");
@@ -132,8 +133,10 @@ const Slider = (props) => {
       isDragging.current = false;
 
       endTime.current = e.timeStamp;
+      // console.log(e);
 
       const distance = currentPosition.current - prevPosition.current;
+      // console.log(distance);
 
       /* Go to the next or prev slide if the dragMove speed 
       is less then 0.3s */
@@ -142,11 +145,11 @@ const Slider = (props) => {
       console.log(speed);
       if (
         distance <= -width.current / 2 ||
-        (distance < 0 && speed < 200) //
+        (distance < 0 && speed < 300) //
       )
         nextSlide();
 
-      if (distance > width.current / 2 || (distance > 0 && speed < 200))
+      if (distance > width.current / 2 || (distance > 0 && speed < 300))
         prevSlide();
 
       updatePosByIndex();
@@ -267,6 +270,8 @@ const Slider = (props) => {
         )}
       </div>
       <div className="navigation">{rnederNavigation()}</div>
+      <p>{endTime.current}</p>
+      <p>{startTime.current}</p>
     </div>
   );
 };
