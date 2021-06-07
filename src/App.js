@@ -15,12 +15,6 @@ import PropsContextProvider from "./components/Slider/SliderContext";
 import { SliderContext } from "./components/Slider/SliderContext";
 
 const carouselImages = [img1, img2, img3, img4, img5];
-// const carouselImages = [
-//   <span>Slide 1</span>,
-//   <span>Slide 2</span>,
-//   <span>Slide 3</span>,
-//   <span>Slide 4</span>,
-// ];
 
 const App = () => {
   const sliderCtx = useContext(SliderContext);

@@ -58,9 +58,10 @@ const Slider = (props) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [updatePosByIndex]);
 
+  // Auto play
   useEffect(() => {
     if (autoPlay) {
-      const play = setInterval(() => nextSlide(), 2000);
+      const play = setInterval(() => nextSlide(), 1500);
       return () => clearInterval(play);
     }
   }, [nextSlide, autoPlay]);
@@ -136,22 +137,20 @@ const Slider = (props) => {
       isDragging.current = false;
 
       endTime.current = e.timeStamp;
-      console.log(endTime.current + " end");
 
       const distance = currentPosition.current - prevPosition.current;
-      // console.log(distance);
 
       /* Go to the next or prev slide if the dragMove speed 
       is less then 0.3s */
       const speed = endTime.current - startTime.current;
 
       if (
-        distance <= -width.current / 2 ||
-        (distance < 0 && speed <= 250) //
+        distance <= -width.current / 3 ||
+        (distance < 0 && speed < 200) //
       )
         nextSlide();
 
-      if (distance > width.current / 2 || (distance > 0 && speed <= 250))
+      if (distance > width.current / 3 || (distance > 0 && speed < 200))
         prevSlide();
 
       updatePosByIndex();
@@ -250,7 +249,6 @@ const Slider = (props) => {
             e.preventDefault();
             e.stopPropagation();
           }}
-          onTouchMoveCapture={(e) => console.log(e.timeStamp + " capture")}
           ref={sliderRef}
         >
           {infinite && renderExtraPrev().map((element) => element)}
@@ -273,8 +271,6 @@ const Slider = (props) => {
         )}
       </div>
       <div className="navigation">{rnederNavigation()}</div>
-      <p>{endTime.current}</p>
-      <p>{startTime.current}</p>
     </div>
   );
 };
