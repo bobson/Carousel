@@ -113,7 +113,8 @@ const Slider = (props) => {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
 
-      startTime.current = Date.now();
+      setTimeout(() => (startTime.current = Date.now()));
+
       console.log(startTime.current + " move");
 
       if (diff < -20 || diff > 20)
@@ -147,11 +148,11 @@ const Slider = (props) => {
 
       if (
         distance <= -width.current / 2 ||
-        (distance < 0 && speed < 50) //
+        (distance < 0 && speed <= 200) //
       )
         nextSlide();
 
-      if (distance > width.current / 2 || (distance > 0 && speed < 50))
+      if (distance > width.current / 2 || (distance > 0 && speed <= 200))
         prevSlide();
 
       updatePosByIndex();
