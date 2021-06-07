@@ -99,6 +99,8 @@ const Slider = (props) => {
 
     startPos.current = getPositionX(e);
 
+    startTime.current = e.timeStamp;
+
     isDragging.current = true;
 
     animationRef.current = requestAnimationFrame(animation);
@@ -106,17 +108,12 @@ const Slider = (props) => {
     prevPosition.current = currentPosition.current;
 
     sliderRef.current.style.cursor = "grabbing";
-    console.log("start");
   }
 
   function touchMove(e) {
     if (isDragging.current) {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
-
-      startTime.current = e.timeStamp;
-
-      // console.log(startTime.current + " move");
 
       if (diff < -20 || diff > 20)
         document.body.classList.add("vertical-scroll");
