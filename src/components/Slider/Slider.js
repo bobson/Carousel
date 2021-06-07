@@ -107,13 +107,14 @@ const Slider = (props) => {
 
     sliderRef.current.style.cursor = "grabbing";
   }
+
   function touchMove(e) {
     if (isDragging.current) {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
 
       startTime.current = e.timeStamp;
-      console.log(e.timeStamp);
+      console.log(startTime.current);
 
       if (diff < -20 || diff > 20)
         document.body.classList.add("vertical-scroll");
@@ -135,7 +136,7 @@ const Slider = (props) => {
       isDragging.current = false;
 
       endTime.current = e.timeStamp;
-      console.log(e.timeStamp);
+      console.log(endTime.current);
 
       const distance = currentPosition.current - prevPosition.current;
       // console.log(distance);
@@ -241,9 +242,9 @@ const Slider = (props) => {
           onMouseLeave={() => {
             if (isDragging.current) touchEnd();
           }}
-          onTouchStart={touchStart}
-          onTouchMove={touchMove}
-          onTouchEnd={touchEnd}
+          onTouchStart={(e) => touchStart(e)}
+          onTouchMove={(e) => touchMove(e)}
+          onTouchEnd={(e) => touchEnd(e)}
           onTransitionEnd={handleTransitionEnd}
           onContextMenu={(e) => {
             e.preventDefault();
