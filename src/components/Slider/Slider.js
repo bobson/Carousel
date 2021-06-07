@@ -106,14 +106,14 @@ const Slider = (props) => {
     prevPosition.current = currentPosition.current;
 
     sliderRef.current.style.cursor = "grabbing";
-    startTime.current = e.timeStamp;
   }
   function touchMove(e) {
     if (isDragging.current) {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
 
-      console.log(e);
+      startTime.current = e.timeStamp;
+      // console.log(e);
 
       if (diff < -20 || diff > 20)
         document.body.classList.add("vertical-scroll");
@@ -147,11 +147,11 @@ const Slider = (props) => {
       console.log(speed);
       if (
         distance <= -width.current / 2 ||
-        (distance < 0 && speed < 300) //
+        (distance < 0 && speed < 50) //
       )
         nextSlide();
 
-      if (distance > width.current / 2 || (distance > 0 && speed < 300))
+      if (distance > width.current / 2 || (distance > 0 && speed < 50))
         prevSlide();
 
       updatePosByIndex();
