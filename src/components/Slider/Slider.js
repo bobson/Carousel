@@ -113,7 +113,7 @@ const Slider = (props) => {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
 
-      startTime.current = e.timeStamp;
+      startTime.current = Date.now();
       console.log(startTime.current + " move");
 
       if (diff < -20 || diff > 20)
@@ -135,7 +135,7 @@ const Slider = (props) => {
       // transitionOn();
       isDragging.current = false;
 
-      endTime.current = e.timeStamp;
+      endTime.current = Date.now();
       console.log(endTime.current + " end");
 
       const distance = currentPosition.current - prevPosition.current;
