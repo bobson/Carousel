@@ -113,7 +113,7 @@ const Slider = (props) => {
       const diff = moveEndPos - startPos.current;
 
       startTime.current = e.timeStamp;
-      // console.log(e);
+      console.log(e.timeStamp);
 
       if (diff < -20 || diff > 20)
         document.body.classList.add("vertical-scroll");
