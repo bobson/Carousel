@@ -274,7 +274,7 @@ const Slider = (props) => {
       <div className="navigation">{rnederNavigation()}</div>
       <p>{endTime.current}</p>
       <p>{startTime.current}</p>
-      <p>{testRef}</p>
+      <p>{testRef.current}</p>
     </div>
   );
 };
