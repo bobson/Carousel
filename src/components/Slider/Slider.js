@@ -45,7 +45,7 @@ const Slider = (props) => {
     setLength(children.length);
     setCurrnetIndex(infinite ? show : 0);
   }, [children, infinite, show]);
-  console.log(infinite);
+
   // Add resize event listener
   useEffect(() => {
     function handleResize() {
@@ -139,13 +139,14 @@ const Slider = (props) => {
       is less then 0.3s */
       const speed = endTime.current - startTime.current;
 
+      console.log(speed);
       if (
         distance <= -width.current / 2 ||
-        (distance < 0 && speed < 300) //
+        (distance < 0 && speed < 200) //
       )
         nextSlide();
 
-      if (distance > width.current / 2 || (distance > 0 && speed < 300))
+      if (distance > width.current / 2 || (distance > 0 && speed < 200))
         prevSlide();
 
       updatePosByIndex();
