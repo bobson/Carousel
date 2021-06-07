@@ -29,7 +29,7 @@ const Slider = (props) => {
   const prevPosition = useRef(0);
   const animationRef = useRef(null);
   const sliderRef = useRef();
-  const testRef = useRef();
+
   const canISlide =
     useRef(true); /* Ensures that extraPrev and extraNext are rendered */
 
@@ -106,13 +106,13 @@ const Slider = (props) => {
     prevPosition.current = currentPosition.current;
 
     sliderRef.current.style.cursor = "grabbing";
+    startTime.current = e.timeStamp;
   }
   function touchMove(e) {
     if (isDragging.current) {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
-      testRef.current = diff;
-      startTime.current = e.timeStamp;
+
       console.log(e);
 
       if (diff < -20 || diff > 20)
@@ -274,7 +274,6 @@ const Slider = (props) => {
       <div className="navigation">{rnederNavigation()}</div>
       <p>{endTime.current}</p>
       <p>{startTime.current}</p>
-      <p>{testRef.current}</p>
     </div>
   );
 };
