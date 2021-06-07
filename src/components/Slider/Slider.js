@@ -109,7 +109,6 @@ const Slider = (props) => {
   }
 
   function touchMove(e) {
-    e.preventDefault();
     if (isDragging.current) {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
@@ -129,6 +128,7 @@ const Slider = (props) => {
 
       currentPosition.current = prevPosition.current + diff;
     }
+    e.preventDefault();
   }
 
   function touchEnd(e) {
