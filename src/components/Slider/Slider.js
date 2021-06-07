@@ -101,7 +101,7 @@ const Slider = (props) => {
 
     isDragging.current = true;
 
-    // animationRef.current = requestAnimationFrame(animation);
+    animationRef.current = requestAnimationFrame(animation);
 
     prevPosition.current = currentPosition.current;
 
@@ -114,10 +114,9 @@ const Slider = (props) => {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
 
-      const currentTime = e.timeStamp;
-      startTime.current = currentTime;
+      startTime.current = e.timeStamp;
 
-      console.log(startTime.current + " move");
+      // console.log(startTime.current + " move");
 
       if (diff < -20 || diff > 20)
         document.body.classList.add("vertical-scroll");
@@ -128,7 +127,6 @@ const Slider = (props) => {
       }
 
       currentPosition.current = prevPosition.current + diff;
-      setSliderPosition();
     }
   }
 
@@ -136,7 +134,7 @@ const Slider = (props) => {
     e.preventDefault();
     if (isDragging.current) {
       document.body.classList.remove("vertical-scroll");
-      // cancelAnimationFrame(animationRef.current);
+      cancelAnimationFrame(animationRef.current);
       transitionOn();
       isDragging.current = false;
 
@@ -241,20 +239,21 @@ const Slider = (props) => {
         <div
           className="slider-content"
           onDragStart={(e) => e.preventDefault()}
-          onMouseDown={(e) => touchStart(e)}
-          onMouseMove={(e) => touchMove(e)}
-          onMouseUp={(e) => touchEnd(e)}
+          onMouseDown={touchStart}
+          onMouseMove={touchMove}
+          onMouseUp={touchEnd}
           onMouseLeave={() => {
             if (isDragging.current) touchEnd();
           }}
-          onTouchStart={(e) => touchStart(e)}
-          onTouchMove={(e) => touchMove(e)}
-          onTouchEnd={(e) => touchEnd(e)}
+          onTouchStart={touchStart}
+          onTouchMove={touchMove}
+          onTouchEnd={touchEnd}
           onTransitionEnd={handleTransitionEnd}
           onContextMenu={(e) => {
             e.preventDefault();
             e.stopPropagation();
           }}
+          onTouchMoveCapture={(e) => console.log(e.timeStamp + " capture")}
           ref={sliderRef}
         >
           {infinite && renderExtraPrev().map((element) => element)}
