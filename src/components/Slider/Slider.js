@@ -109,11 +109,13 @@ const Slider = (props) => {
   }
 
   function touchMove(e) {
+    // e.preventDefault();
     if (isDragging.current) {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
 
-      setTimeout(() => (startTime.current = Date.now()), 200);
+      const currentTime = e.timeStamp;
+      startTime.current = currentTime;
 
       console.log(startTime.current + " move");
 
@@ -130,13 +132,14 @@ const Slider = (props) => {
   }
 
   function touchEnd(e) {
+    e.preventDefault();
     if (isDragging.current) {
       document.body.classList.remove("vertical-scroll");
       cancelAnimationFrame(animationRef.current);
-      // transitionOn();
+      transitionOn();
       isDragging.current = false;
 
-      endTime.current = Date.now();
+      endTime.current = e.timeStamp;
       console.log(endTime.current + " end");
 
       const distance = currentPosition.current - prevPosition.current;
@@ -148,11 +151,11 @@ const Slider = (props) => {
 
       if (
         distance <= -width.current / 2 ||
-        (distance < 0 && speed <= 200) //
+        (distance < 0 && speed <= 250) //
       )
         nextSlide();
 
-      if (distance > width.current / 2 || (distance > 0 && speed <= 200))
+      if (distance > width.current / 2 || (distance > 0 && speed <= 250))
         prevSlide();
 
       updatePosByIndex();
