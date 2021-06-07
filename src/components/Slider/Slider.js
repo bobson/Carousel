@@ -95,7 +95,7 @@ const Slider = (props) => {
   }
 
   function touchStart(e) {
-    transitionOn();
+    transitionOff();
 
     startPos.current = getPositionX(e);
 
@@ -113,7 +113,7 @@ const Slider = (props) => {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
 
-      setTimeout(() => (startTime.current = Date.now()));
+      setTimeout(() => (startTime.current = Date.now()), 200);
 
       console.log(startTime.current + " move");
 
