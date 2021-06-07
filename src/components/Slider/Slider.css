@@ -3,6 +3,7 @@
   max-width: 800px;
   position: relative;
   margin: auto;
+  z-index: 20;
 }
 
 .slider {
@@ -19,7 +20,6 @@
   display: flex;
   flex-direction: row;
   cursor: grab;
-  z-index: 20;
 }
 
 .slider-content > * {
