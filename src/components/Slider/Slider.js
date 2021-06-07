@@ -101,11 +101,12 @@ const Slider = (props) => {
 
     isDragging.current = true;
 
-    animationRef.current = requestAnimationFrame(animation);
+    // animationRef.current = requestAnimationFrame(animation);
 
     prevPosition.current = currentPosition.current;
 
     sliderRef.current.style.cursor = "grabbing";
+    console.log("start");
   }
 
   function touchMove(e) {
@@ -127,15 +128,15 @@ const Slider = (props) => {
       }
 
       currentPosition.current = prevPosition.current + diff;
+      setSliderPosition();
     }
-    e.preventDefault();
   }
 
   function touchEnd(e) {
     e.preventDefault();
     if (isDragging.current) {
       document.body.classList.remove("vertical-scroll");
-      cancelAnimationFrame(animationRef.current);
+      // cancelAnimationFrame(animationRef.current);
       transitionOn();
       isDragging.current = false;
 

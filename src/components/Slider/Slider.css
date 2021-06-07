@@ -19,6 +19,7 @@
   display: flex;
   flex-direction: row;
   cursor: grab;
+  z-index: 20;
 }
 
 .slider-content > * {
