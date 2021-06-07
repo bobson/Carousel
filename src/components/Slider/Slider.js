@@ -114,7 +114,7 @@ const Slider = (props) => {
       const diff = moveEndPos - startPos.current;
 
       startTime.current = e.timeStamp;
-      console.log(startTime.current);
+      console.log(startTime.current + " move");
 
       if (diff < -20 || diff > 20)
         document.body.classList.add("vertical-scroll");
@@ -136,7 +136,7 @@ const Slider = (props) => {
       isDragging.current = false;
 
       endTime.current = e.timeStamp;
-      console.log(endTime.current);
+      console.log(endTime.current + " end");
 
       const distance = currentPosition.current - prevPosition.current;
       // console.log(distance);
@@ -236,9 +236,9 @@ const Slider = (props) => {
         <div
           className="slider-content"
           onDragStart={(e) => e.preventDefault()}
-          onMouseDown={touchStart}
-          onMouseMove={touchMove}
-          onMouseUp={touchEnd}
+          onMouseDown={(e) => touchStart(e)}
+          onMouseMove={(e) => touchMove(e)}
+          onMouseUp={(e) => touchEnd(e)}
           onMouseLeave={() => {
             if (isDragging.current) touchEnd();
           }}
