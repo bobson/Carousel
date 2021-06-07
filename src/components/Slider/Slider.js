@@ -29,6 +29,7 @@ const Slider = (props) => {
   const prevPosition = useRef(0);
   const animationRef = useRef(null);
   const sliderRef = useRef();
+  const testRef = useRef();
   const canISlide =
     useRef(true); /* Ensures that extraPrev and extraNext are rendered */
 
@@ -110,6 +111,7 @@ const Slider = (props) => {
     if (isDragging.current) {
       const moveEndPos = getPositionX(e);
       const diff = moveEndPos - startPos.current;
+      testRef.current = diff;
       startTime.current = e.timeStamp;
       console.log(e);
 
@@ -272,6 +274,7 @@ const Slider = (props) => {
       <div className="navigation">{rnederNavigation()}</div>
       <p>{endTime.current}</p>
       <p>{startTime.current}</p>
+      <p>{testRef}</p>
     </div>
   );
 };
